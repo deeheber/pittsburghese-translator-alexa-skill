@@ -3,7 +3,7 @@
 const Alexa = require('alexa-sdk');
 const APP_ID =  'amzn1.ask.skill.89aa6c81-df5f-4d7a-b9b6-aa6237ea4d52';
 
-const SKILL_NAME = 'Space Facts';
+const SKILL_NAME = 'Pennsylvania Facts';
 const GET_FACT_MESSAGE = "Here's your fact: ";
 const HELP_MESSAGE = 'You can say tell me a PA fact, or, you can say exit... What can I help you with?';
 const HELP_REPROMPT = 'What can I help you with?';
