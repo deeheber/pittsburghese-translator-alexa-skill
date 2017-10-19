@@ -4,4 +4,4 @@ Decided to create some custom skills for my [Echo Dot](https://www.amazon.com/dp
 Each folder at the root level is a single skill. For now it's just the one, but more will be coming eventually :)
 
 ## Developer Notes
-This is just the code that can be placed in an AWS lambda function, you will also need to do some additional setup to get everything works. The best Amazon official documentation can be found [here](https://developer.amazon.com/docs/custom-skills/steps-to-build-a-custom-skill.html).
+This is just the code that can be placed in an AWS lambda function, you will also need to do some additional setup to get everything working on an Alexa enabled device. The best Amazon official documentation can be found [here](https://developer.amazon.com/docs/custom-skills/steps-to-build-a-custom-skill.html).
