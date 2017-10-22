@@ -1,0 +1,19 @@
+{
+  "deploy_settings": {
+    "default": {
+      "skill_id": "amzn1.ask.skill.5caef6c0-d5fd-4306-8a27-7ed652107db1",
+      "was_cloned": false,
+      "merge": {
+        "skillManifest": {
+          "apis": {
+            "custom": {
+              "endpoint": {
+                "uri": "ask-custom-pittsburghese_translator-default"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
