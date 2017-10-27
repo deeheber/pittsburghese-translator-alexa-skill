@@ -1,7 +1,7 @@
 {
     "interactionModel":{
         "languageModel":{
-            "invocationName":"hello world",
+            "invocationName":"pittsburghese translator",
             "types":[],
             "intents":[
                 {
@@ -17,28 +17,15 @@
                   "samples": []
                 },
                 {
-                    "name":"HelloWorldIntent",
+                    "name":"MainMenuIntent",
                     "slots":[
 
                     ],
                     "samples":[
-                        "hello",
-                        "say hello",
-                        "say hello world"
-                    ]
-                },
-                {
-                    "name":"MyNameIsIntent",
-                    "slots":[
-                        {
-                            "name":"name",
-                            "type":"AMAZON.US_FIRST_NAME"
-                        }
-                    ],
-                    "samples":[
-                        "my name is {name}",
-                        "i am {name}",
-                        "you can call me {name}"
+                        "menu",
+                        "go to main menu",
+                        "start over",
+                        "go to the beginning"
                     ]
                 }
             ]

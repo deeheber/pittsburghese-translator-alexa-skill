@@ -13,23 +13,13 @@ exports.handler = function(event, context) {
 
 var handlers = {
     'LaunchRequest': function () {
-        this.emit('SayHello');
+        this.emit('MainMenu');
     },
-    'HelloWorldIntent': function () {
-        this.emit('SayHello');
+    'MainMenuIntent': function () {
+        this.emit('MainMenu');
     },
-    'MyNameIsIntent': function () {
-        this.emit('SayHelloName');
-    },
-    'SayHello': function () {
-        this.response.speak('Hello World!')
-                     .cardRenderer('hello world', 'hello world');
-        this.emit(':responseReady');
-    },
-    'SayHelloName': function () {
-        var name = this.event.request.intent.slots.name.value;
-        this.response.speak('Hello ' + name)
-            .cardRenderer('hello world', 'hello ' + name);
+    'MainMenu': function () {
+        this.response.speak('At the main menu');
         this.emit(':responseReady');
     },
     'SessionEndedRequest' : function() {
@@ -40,8 +30,7 @@ var handlers = {
         this.emit(':responseReady');
     },
     'AMAZON.HelpIntent' : function() {
-        this.response.speak("You can try: 'alexa, hello world' or 'alexa, ask hello world my" +
-            " name is awesome Aaron'");
+        this.response.speak("You can try: 'enter help intent directions here'");
         this.emit(':responseReady');
     },
     'AMAZON.CancelIntent' : function() {
@@ -49,7 +38,6 @@ var handlers = {
         this.emit(':responseReady');
     },
     'Unhandled' : function() {
-        this.response.speak("Sorry, I didn't get that. You can try: 'alexa, hello world'" +
-            " or 'alexa, ask hello world my name is awesome Aaron'");
+        this.response.speak("Sorry, I didn't get that. You can try: 'insert unhandled info here'");
     }
 };
