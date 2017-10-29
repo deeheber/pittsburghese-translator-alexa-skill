@@ -1,34 +1,45 @@
 {
-    "interactionModel":{
-        "languageModel":{
-            "invocationName":"pittsburghese translator",
-            "types":[],
-            "intents":[
-                {
-                  "name": "AMAZON.CancelIntent",
-                  "samples": []
-                },
-                {
-                  "name": "AMAZON.HelpIntent",
-                  "samples": []
-                },
-                {
-                  "name": "AMAZON.StopIntent",
-                  "samples": []
-                },
-                {
-                    "name":"MainMenuIntent",
-                    "slots":[
-
-                    ],
-                    "samples":[
-                        "menu",
-                        "go to main menu",
-                        "start over",
-                        "go to the beginning"
-                    ]
-                }
-            ]
+  "interactionModel":{
+    "languageModel":{
+      "invocationName":"pittsburghese translator",
+      "types":[],
+      "intents":[
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name":"MainMenuIntent",
+          "samples":[
+            "menu",
+            "go to main menu",
+            "start over",
+            "go to the beginning"
+          ]
+        },
+        {
+          "name": "TranslateIntent",
+          "slots": [
+            {
+              "name": "Phrase",
+              "type": "AMAZON.LITERAL"
+            }
+          ],
+          "samples": [
+            "translate {you|Phrase}",
+            "to translate {are you going to the steeler game|Phrase}",
+            "to say {i am going downtown to buy a ham sandwich|Phrase}"
+          ]
         }
+      ]
     }
+  }
 }
