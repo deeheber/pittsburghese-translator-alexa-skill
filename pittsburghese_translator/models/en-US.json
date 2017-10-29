@@ -35,6 +35,7 @@
           ],
           "samples": [
             "translate {you|Phrase}",
+            "say {i want to go fishing at the creek|Phrase}",
             "to translate {are you going to the steeler game|Phrase}",
             "to say {i am going downtown to buy a ham sandwich|Phrase}"
           ]
