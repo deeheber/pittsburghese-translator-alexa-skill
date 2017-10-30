@@ -3,7 +3,7 @@ var Alexa = require("alexa-sdk");
 
 exports.handler = function(event, context) {
   var alexa = Alexa.handler(event, context);
-  
+  // TODO add app id here
   alexa.registerHandlers(handlers);
   alexa.execute();
 };
@@ -19,9 +19,7 @@ var handlers = {
     this.emit('Translate');
   },
   'MainMenu': function () {
-    this.response.speak('you are at the main menu');
-    // TODO figure out how to connect this to getting user input and launching Translate
-    this.emit(':responseReady');
+    this.emit(':ask', 'Welcome to the Pittsburghese translator. Say translate and the phrase you would like to translate.');
   },
   'Translate': function() {
     var phraseToTranslate = this.event.request.intent.slots.Phrase.value;
