@@ -1,14 +1,13 @@
-'use strict';
-var Alexa = require("alexa-sdk");
+const Alexa = require("alexa-sdk");
 
 exports.handler = function(event, context) {
-  var alexa = Alexa.handler(event, context);
+  const alexa = Alexa.handler(event, context);
   // TODO add app id here
   alexa.registerHandlers(handlers);
   alexa.execute();
 };
 
-var handlers = {
+const handlers = {
   'LaunchRequest': function() {
     this.emit('MainMenu');
   },
@@ -22,7 +21,7 @@ var handlers = {
     this.emit('Translate');
   },
   'Translate': function() {
-    var phraseToTranslate = this.event.request.intent.slots.Phrase.value;
+    const phraseToTranslate = this.event.request.intent.slots.Phrase.value;
     // TODO transform the output to pittsburghese here probably by using a dictionary
     this.response.speak(phraseToTranslate);
     this.emit(':responseReady');
