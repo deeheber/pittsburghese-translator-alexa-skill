@@ -9,5 +9,7 @@ module.exports = {
   downtown: 'dahntahn',
   out: 'aht',
   creek: 'crick',
-  why: 'hows-come'
+  why: 'hows-come',
+  nebnose: 'nebby',
+  nosey: 'nebby'
 };
