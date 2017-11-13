@@ -39,6 +39,8 @@ module.exports = {
   oven_mitt: 'hot pad',
   thorn: 'jagger',
   thorns: 'jaggers',
+  thorn_bush: 'jagger bush',
+  thorn_bushes: 'jagger bushes',
   bologna: 'jumbo',
   dish_towel: 'tea towel',
   sneakers: 'tennis shoes'
