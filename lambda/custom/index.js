@@ -1,5 +1,8 @@
 const Alexa = require("alexa-sdk");
 
+const translator = require('./util/translator');
+const dictionary = require('./data/dictionary');
+
 exports.handler = function(event, context) {
   const alexa = Alexa.handler(event, context);
   // TODO add app id here
@@ -22,8 +25,9 @@ const handlers = {
   },
   'Translate': function() {
     const phraseToTranslate = this.event.request.intent.slots.Phrase.value;
-    // TODO transform the output to pittsburghese here probably by using a dictionary
-    this.response.speak(phraseToTranslate);
+    const translated = translator(dictionary, phraseToTranslate);
+    
+    this.response.speak(translated);
     this.emit(':responseReady');
   },
   'AMAZON.HelpIntent': function() {
