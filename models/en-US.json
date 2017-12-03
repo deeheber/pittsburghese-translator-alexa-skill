@@ -1,7 +1,7 @@
 {
   "interactionModel":{
     "languageModel":{
-      "invocationName":"yinzerize",
+      "invocationName":"yinzer",
       "types":[],
       "intents":[
         {
@@ -10,6 +10,14 @@
         },
         {
           "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.YesIntent",
           "samples": []
         },
         {

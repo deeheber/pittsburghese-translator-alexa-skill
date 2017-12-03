@@ -1,6 +1,7 @@
 const Alexa = require("alexa-sdk");
 
 const translator = require('./util/translator');
+const continuePhrase = require('./util/continue');
 const dictionary = require('./data/dictionary');
 
 exports.handler = function(event, context) {
@@ -26,12 +27,18 @@ const handlers = {
   'Translate'() {
     const phraseToTranslate = this.event.request.intent.slots.Phrase.value;
     const translated = translator(dictionary, phraseToTranslate);
+    const i = Math.floor(Math.random() * ((continuePhrase.length - 1) + 1));
 
-    this.response.speak(translated);
-    this.emit(':responseReady');
+    this.emit(':ask', translated + '<break time="1.5s"/>' + continuePhrase[i]);
   },
   'AMAZON.HelpIntent'() {
     this.emit('Say translate and the phrase you would like to translate. For example you can try, "translate" I am going downtown');
+  },
+  'AMAZON.NoIntent'() {
+    this.emit('Bye');
+  },
+  'AMAZON.YesIntent'() {
+    this.emit(':ask', 'What would you like to hear?');
   },
   'AMAZON.StopIntent'() {
     this.emit('Bye');
@@ -40,8 +47,7 @@ const handlers = {
     this.emit('Bye');
   },
   'Bye'() {
-    this.response.speak('Thanks for stopping by. Catch you next time.');
-    this.emit(':responseReady');
+    this.emit(':tell', 'Thanks for stopping by. Catch you next time.');
   },
   'Unhandled'() {
     this.emit(':ask', "Sorry, I didn't get that. You can say, 'translate' and the phrase you would like to hear");
