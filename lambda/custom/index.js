@@ -40,7 +40,7 @@ const handlers = {
     this.emit(':ask', `<prosody rate='x-slow' volume='loud'>${storedTranslation}</prosody>` + '<break time="1.5s"/>' + 'is there anything else you would like me to do?');
   },
   'AMAZON.HelpIntent'() {
-    this.emit('Say translate and the phrase you would like to translate. For example you can try, "translate" I am going downtown');
+    this.emit(':ask', 'Say translate and the phrase you would like to translate. For example you can try, "translate" I am going downtown. You can also ask me to repeat or slow down the last translation. What can I do for you?');
   },
   'AMAZON.NoIntent'() {
     this.emit('Bye');
