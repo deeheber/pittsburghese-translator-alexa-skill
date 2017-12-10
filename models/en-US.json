@@ -48,6 +48,17 @@
             "to translate {are you going to the steeler game|Phrase}",
             "to say {i am going downtown to buy a ham sandwich|Phrase}"
           ]
+        },
+        {
+          "name":"RepeatIntent",
+          "samples":[
+            "repeat",
+            "repeat translation",
+            "say again",
+            "what did you just say",
+            "hear translation again", 
+            "hear again"
+          ]
         }
       ]
     }

@@ -1,8 +1,9 @@
 const Alexa = require("alexa-sdk");
 
 const translator = require('./util/translator');
-const continuePhrase = require('./util/continue');
 const dictionary = require('./data/dictionary');
+
+let storedTranslation = 'I don\'t have a translation to repeat';
 
 exports.handler = function(event, context) {
   const alexa = Alexa.handler(event, context);
@@ -19,7 +20,7 @@ const handlers = {
     this.emit('MainMenu');
   },
   'MainMenu'() {
-    this.emit(':ask', 'Welcome to the Pittsburghese translator. Say translate and the phrase you would like to translate.');
+    this.emit(':ask', 'Welcome to the Pittsburghese translator. Say translate and the phrase you would like to hear Yinzerized.');
   },
   'TranslateIntent'() {
     this.emit('Translate');
@@ -27,9 +28,13 @@ const handlers = {
   'Translate'() {
     const phraseToTranslate = this.event.request.intent.slots.Phrase.value;
     const translated = translator(dictionary, phraseToTranslate);
-    const i = Math.floor(Math.random() * ((continuePhrase.length - 1) + 1));
 
-    this.emit(':ask', translated + '<break time="1.5s"/>' + continuePhrase[i]);
+    storedTranslation = translated;
+
+    this.emit(':ask', translated + '<break time="1.5s"/>' + 'is there anything else you would like me to do?');
+  },
+  'RepeatIntent'() {
+    this.emit(':ask', storedTranslation + '<break time="1.5s"/>' + 'is there anything else you would like me to do?');
   },
   'AMAZON.HelpIntent'() {
     this.emit('Say translate and the phrase you would like to translate. For example you can try, "translate" I am going downtown');
@@ -38,7 +43,7 @@ const handlers = {
     this.emit('Bye');
   },
   'AMAZON.YesIntent'() {
-    this.emit(':ask', 'What would you like to hear?');
+    this.emit(':ask', 'What can I do for you?');
   },
   'AMAZON.StopIntent'() {
     this.emit('Bye');
@@ -47,7 +52,7 @@ const handlers = {
     this.emit('Bye');
   },
   'Bye'() {
-    this.emit(':tell', 'Thanks for stopping by. Catch you next time.');
+    this.emit(':tell', 'Thanks for stopping by catch you next time.');
   },
   'Unhandled'() {
     this.emit(':ask', "Sorry, I didn't get that. You can say, 'translate' and the phrase you would like to hear");
