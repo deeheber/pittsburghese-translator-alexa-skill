@@ -36,6 +36,9 @@ const handlers = {
   'RepeatIntent'() {
     this.emit(':ask', storedTranslation + '<break time="1.5s"/>' + 'is there anything else you would like me to do?');
   },
+  'SlowDownIntent'() {
+    this.emit(':ask', `<prosody rate='x-slow' volume='loud'>${storedTranslation}</prosody>` + '<break time="1.5s"/>' + 'is there anything else you would like me to do?');
+  },
   'AMAZON.HelpIntent'() {
     this.emit('Say translate and the phrase you would like to translate. For example you can try, "translate" I am going downtown');
   },
@@ -52,7 +55,7 @@ const handlers = {
     this.emit('Bye');
   },
   'Bye'() {
-    this.emit(':tell', 'Thanks for stopping by catch you next time.');
+    this.emit(':tell', 'Catch yinz next time, bye!');
   },
   'Unhandled'() {
     this.emit(':ask', "Sorry, I didn't get that. You can say, 'translate' and the phrase you would like to hear");

@@ -59,6 +59,15 @@
             "hear translation again", 
             "hear again"
           ]
+        },
+        {
+          "name": "SlowDownIntent",
+          "samples": [
+            "repeat and slow down",
+            "slow down and repeat",
+            "slower",
+            "say the translation slower"
+          ]
         }
       ]
     }
