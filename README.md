@@ -1,7 +1,7 @@
 # Yinzer-A-Pittsburghese-Translator
 
 ## Summary
-Are you planning a visit to Pittsbugh or Western Pennsylvania and want to talk like the locals? If you answered yes, then this is the Alexa skill is for you!
+Are you planning a visit to Pittsburgh or Western Pennsylvania and want to talk like the locals? If you answered yes, then this is the Alexa skill is for you!
 
 This is a skill in which a user will say a word or phrase and Alexa will repeat that word or phrase back to the user in Pittsburghese if a Pittsburghese translation of the phrase exists...otherwise it will just repeat the phrase back to you.
 
