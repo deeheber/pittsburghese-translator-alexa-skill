@@ -5,17 +5,17 @@
         "en-US": {
           "summary": "Skill that translates English into Pittsburghese.",
           "examplePhrases": [
-            "Alexa open yinzer",
-            "Alexa ask yinzer to translate I am going to the steelers game",
-            "Alexa ask yinzer to say what you are guys doing"
+            "Alexa open hey yinz",
+            "Alexa launch hey yinz",
+            "Alexa start hey yinz"
           ],
-          "name": "yinzer",
+          "name": "hey yinz",
           "description": "Ever wanted to talk like a born and raised Pittsburgher? Well, this app can help you practice. It will translate any phrase you say into Pittsburghese. Note: a phrase might not have a distinct Pittsburghese translate so you might just hear the same phrase repeated back to you."
         }
       },
       "isAvailableWorldwide": true,
       "testingInstructions": "Sample Testing Instructions.",
-      "category": "EDUCATION_AND_REFERENCE",
+      "category": "TRANSLATORS",
       "distributionCountries": []
     },
     "apis": {

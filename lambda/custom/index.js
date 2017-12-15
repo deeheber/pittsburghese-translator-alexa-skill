@@ -3,11 +3,10 @@ const Alexa = require("alexa-sdk");
 const translator = require('./util/translator');
 const dictionary = require('./data/dictionary');
 
-let storedTranslation = 'I don\'t have a translation to repeat';
-
 exports.handler = function(event, context) {
   const alexa = Alexa.handler(event, context);
   // TODO add app id here
+  let storedTranslation = "I don't have a translation to repeat";
   alexa.registerHandlers(handlers);
   alexa.execute();
 };

@@ -1,4 +1,4 @@
-# Yinzer-A-Pittsburghese-Translator
+# Hey-Yinz!-A-Pittsburghese-Translator
 
 ## Summary
 Are you planning a visit to Pittsburgh or Western Pennsylvania and want to talk like the locals? If you answered yes, then this is the Alexa skill is for you!
