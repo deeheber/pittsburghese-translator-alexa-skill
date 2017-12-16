@@ -1,5 +1,7 @@
 # Hey-Yinz!-A-Pittsburghese-Translator
 
+![hey-yinz-sm108x108](https://user-images.githubusercontent.com/12616554/34074156-2cd923ca-e25e-11e7-8bec-23f2e9a089b6.png)
+
 ## Summary
 Are you planning a visit to Pittsburgh or Western Pennsylvania and want to talk like the locals? If you answered yes, then this is the Alexa skill is for you!
 
@@ -14,3 +16,5 @@ Contributions are welcome. We're specifically looking for ideas for Pittsburghes
 
 ## Disclaimer
 Not everyone in Western Pennsylvania actually talks like this, but sometimes playing into stereotypes can be fun.
+
+[](https://user-images.githubusercontent.com/12616554/34074156-2cd923ca-e25e-11e7-8bec-23f2e9a089b6.png)
