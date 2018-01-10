@@ -8,7 +8,7 @@
           "apis": {
             "custom": {
               "endpoint": {
-                "uri": "ask-custom-pittsburghese_translator-default"
+                "uri": "ask-custom-pittsburghese_translator-v2"
               }
             }
           }
