@@ -1,4 +1,4 @@
-const Alexa = require("alexa-sdk");
+const Alexa = require('alexa-sdk');
 
 const translator = require('./util/translator');
 const dictionary = require('./data/dictionary');
@@ -22,7 +22,7 @@ const handlers = {
     this.emit('MainMenu');
   },
   'MainMenu'() {
-    this.emit(':ask', 'Welcome to Hey Yinz! Say "translate" and the phrase you would like to hear in Pittsburghese.' + '<break time="0.5s"/>' + 'After I reply, you can say "slow down" if you want to listen to the translation again slower.' + '<break time="0.5s"/>' + 'You can also say "repeat" and I will repeat the last translation. ' + '<break time="0.25s"/>' + 'What would you like to translate?');
+    this.emit(':ask', `Welcome to Hey Yinz! To translate a phrase, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`);
   },
   'TranslateIntent'() {
     this.emit('Translate');
@@ -34,7 +34,7 @@ const handlers = {
 
     this.event.session.attributes.lastTranslation = translated;
 
-    this.emit(':ask', translated + '<break time="1.5s"/>' + reply);
+    this.emit(':ask', `${translated} <break time="1.5s"/> ${reply}`);
   },
   'RepeatIntent'() {
     const reply = generatePrompt(prompts);
@@ -42,7 +42,7 @@ const handlers = {
       "I don't have a translation to repeat" :
       this.event.session.attributes.lastTranslation;
 
-    this.emit(':ask', phraseToRepeat + '<break time="1.5s"/>' + reply);
+    this.emit(':ask', `${phraseToRepeat} <break time="1.5s"/> ${reply}`);
   },
   'SlowDownIntent'() {
     const reply = generatePrompt(prompts);
@@ -50,7 +50,7 @@ const handlers = {
       "I don't have a translation to repeat and slow down" :
       this.event.session.attributes.lastTranslation;
 
-    this.emit(':ask', '<prosody rate="x-slow" volume="loud">' + phraseToSlowDown + '</prosody>' + '<break time="1.5s"/>' + reply);
+    this.emit(':ask', `<prosody rate="x-slow" volume="loud"> ${phraseToSlowDown} </prosody> <break time="1.5s"/> ${reply}`);
   },
   'AMAZON.HelpIntent'() {
     this.emit(':ask', 'Say translate and the phrase you would like to translate. For example you can try, "translate" I am going downtown. You can also ask me to repeat or slow down the prior translation. What can I do for you?');

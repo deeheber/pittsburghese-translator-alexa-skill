@@ -43,6 +43,7 @@
           ],
           "samples": [
             "translate {you|Phrase}",
+            "translate {people who do not use turn signals are jerks|Phrase}",
             "to say {what are you all doing|Phrase}",
             "say {i want to go fishing at the creek|Phrase}",
             "to translate {are you going to the steeler game|Phrase}",
