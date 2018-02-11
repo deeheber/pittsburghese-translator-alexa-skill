@@ -63,6 +63,7 @@
         {
           "name": "SlowDownIntent",
           "samples": [
+            "slow down",
             "repeat and slow down",
             "slow down and repeat",
             "slower",

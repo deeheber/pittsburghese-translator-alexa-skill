@@ -19,7 +19,7 @@ const handlers = {
     this.emit('MainMenu');
   },
   'MainMenu'() {
-    this.emit(':ask', 'Welcome to the Pittsburghese translator. Say translate and the phrase you would like to hear Yinzerized.');
+    this.emit(':ask', 'Welcome to Hey Yinz! Say "translate" and the phrase you would like to hear in Pittsburghese.' + '<break time="0.5s"/>' + 'After I reply, you can say "slow down" if you want to listen to the translation again slower.' + '<break time="0.5s"/>' + 'You can also say "repeat" and I will repeat the last translation. ' + '<break time="0.25s"/>' + 'What would you like to translate?');
   },
   'TranslateIntent'() {
     this.emit('Translate');
