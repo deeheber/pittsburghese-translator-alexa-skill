@@ -3,6 +3,9 @@ const Alexa = require("alexa-sdk");
 const translator = require('./util/translator');
 const dictionary = require('./data/dictionary');
 
+const prompts = require('./data/prompts');
+const generatePrompt = require('./util/generatePrompt');
+
 exports.handler = function(event, context) {
   const alexa = Alexa.handler(event, context);
   // TODO add app id here
@@ -27,24 +30,27 @@ const handlers = {
   'Translate'() {
     const phraseToTranslate = this.event.request.intent.slots.Phrase.value;
     const translated = translator(dictionary, phraseToTranslate);
+    const reply = generatePrompt(prompts);
 
     this.event.session.attributes.lastTranslation = translated;
 
-    this.emit(':ask', translated + '<break time="1.5s"/>' + 'is there anything else you would like me to do?');
+    this.emit(':ask', translated + '<break time="1.5s"/>' + reply);
   },
   'RepeatIntent'() {
+    const reply = generatePrompt(prompts);
     const phraseToRepeat = this.event.session.attributes.lastTranslation === undefined ?
       "I don't have a translation to repeat" :
       this.event.session.attributes.lastTranslation;
 
-    this.emit(':ask', phraseToRepeat + '<break time="1.5s"/>' + 'is there anything else you would like me to do?');
+    this.emit(':ask', phraseToRepeat + '<break time="1.5s"/>' + reply);
   },
   'SlowDownIntent'() {
+    const reply = generatePrompt(prompts);
     const phraseToSlowDown = this.event.session.attributes.lastTranslation === undefined ?
       "I don't have a translation to repeat and slow down" :
       this.event.session.attributes.lastTranslation;
 
-    this.emit(':ask', '<prosody rate="x-slow" volume="loud">' + phraseToSlowDown + '</prosody>' + '<break time="1.5s"/>' + 'is there anything else you would like me to do?');
+    this.emit(':ask', '<prosody rate="x-slow" volume="loud">' + phraseToSlowDown + '</prosody>' + '<break time="1.5s"/>' + reply);
   },
   'AMAZON.HelpIntent'() {
     this.emit(':ask', 'Say translate and the phrase you would like to translate. For example you can try, "translate" I am going downtown. You can also ask me to repeat or slow down the prior translation. What can I do for you?');
