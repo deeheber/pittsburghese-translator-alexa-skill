@@ -2,7 +2,41 @@
   "interactionModel":{
     "languageModel":{
       "invocationName":"hey yinz",
-      "types":[],
+      "types":[{
+        "name": "PHRASE",
+        "values": [
+          {
+            "name": {
+              "value": "you"
+            }
+          },
+          {
+            "name": {
+              "value": "people who do not use turn signals are jerks"
+            }
+          },
+          {
+            "name": {
+              "value": "what are you all doing"
+            }
+          },
+          {
+            "name": {
+              "value": "i want to go fishing at the creek"
+            }
+          },
+          {
+            "name": {
+              "value": "are you going to the steeler game"
+            }
+          },
+          {
+            "name": {
+              "value": "i am going downtown to buy a ham sandwich"
+            }
+          }
+        ]
+      }],
       "intents":[
         {
           "name": "AMAZON.CancelIntent",
@@ -38,16 +72,17 @@
           "slots": [
             {
               "name": "Phrase",
-              "type": "AMAZON.LITERAL"
+              "type": "PHRASE"
             }
           ],
           "samples": [
-            "translate {you|Phrase}",
-            "translate {people who do not use turn signals are jerks|Phrase}",
-            "to say {what are you all doing|Phrase}",
-            "say {i want to go fishing at the creek|Phrase}",
-            "to translate {are you going to the steeler game|Phrase}",
-            "to say {i am going downtown to buy a ham sandwich|Phrase}"
+            "translate {Phrase}",
+            "to say {Phrase}",
+            "say {Phrase}",
+            "you should say {Phrase}",
+            "i want to hear {Phrase}",
+            "to translate {Phrase}",
+            "to say {Phrase}"
           ]
         },
         {
