@@ -13,6 +13,27 @@
             }
           }
         }
+      },
+      "resources": {
+        "manifest": {
+          "eTag": "66ac1a8abb750da7ad8537b8cefa7612"
+        },
+        "interactionModel": {
+          "en-US": {
+            "eTag": "0ed240bbaf837da6d36d1dbb7ab52da2"
+          }
+        },
+        "lambda": [
+          {
+            "arn": "arn:aws:lambda:us-east-1:640581278975:function:ask-custom-pittsburghese_translator-v2",
+            "functionName": "arn:aws:lambda:us-east-1:640581278975:function:ask-custom-pittsburghese_translator-v2",
+            "awsRegion": "us-east-1",
+            "alexaUsage": [
+              "custom/default"
+            ],
+            "revisionId": "510663ed-64b0-44f0-85c6-a7593d1c6f00"
+          }
+        ]
       }
     }
   }
