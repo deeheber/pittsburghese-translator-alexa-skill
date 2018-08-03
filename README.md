@@ -16,7 +16,7 @@ Once a phrase is repeated back, the user has the option to repeat the phrase, re
 ## Developer Notes
 This skill was built using the ASK CLI and is deployed via [AWS Lambda](https://aws.amazon.com/lambda/). More info on how to get started can be found [here](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html).
 
-Contributions are welcome. We're specifically looking for ideas for Pittsburghese phrases to store for Alexa to repeat back.
+Contributions are welcome. We're specifically looking for ideas for Pittsburghese phrases to store for Alexa to repeat back. Check out our contribution guidelines [here](https://github.com/deeheber/pittsburghese-translator-alexa-skill/blob/master/CONTRIBUTING.md)
 
 ## Disclaimer
 Not everyone in Western Pennsylvania actually talks like this, but sometimes playing into stereotypes can be fun.
