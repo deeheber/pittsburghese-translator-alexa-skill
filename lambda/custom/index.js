@@ -1,15 +1,14 @@
 const Alexa = require('alexa-sdk');
 const moment = require('moment');
 
-const translator = require('./util/translator');
 const dictionary = require('./data/dictionary');
-
-const prompts = require('./data/prompts');
 const generatePrompt = require('./util/generatePrompt');
+const prompts = require('./data/prompts');
+const translator = require('./util/translator');
 
 exports.handler = function(event, context) {
   const alexa = Alexa.handler(event, context);
-  // TODO add app id here
+
   alexa.registerHandlers(handlers);
   alexa.dynamoDBTableName = 'hey-yinz';
   alexa.execute();
@@ -25,21 +24,21 @@ const handlers = {
   'MainMenu'() {
     const now = moment().utc();
     const lastTimestamp = this.attributes['timestamp'];
-    const prior = moment(lastTimestamp).utc();
+    const then = moment(lastTimestamp).utc();
 
     // let greeting = `Welcome to Hey Yinz! To translate a phrase, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`;
 
-    let greeting = 'longer greeting';
+    let reply = 'longer greeting';
 
     if (lastTimestamp) {
-      if (now.diff(prior, 'minutes') < 1) {
-        greeting = 'shorter greeting';
+      if (now.diff(then, 'minutes') < 1) {
+        reply = 'shorter greeting';
       }
     }
 
     this.attributes['timestamp'] = this.event.request.timestamp;
 
-    this.emit(':ask', greeting);
+    this.emit(':ask', reply);
   },
   'TranslateIntent'() {
     this.emit('Translate');
@@ -55,17 +54,17 @@ const handlers = {
   },
   'RepeatIntent'() {
     const reply = generatePrompt(prompts);
-    const phraseToRepeat = this.attributes['lastTranslation'] === undefined ?
-      "I don't have a translation to repeat" :
-      this.attributes['lastTranslation'];
+    const phraseToRepeat = this.attributes.lastTranslation ?
+      this.attributes.lastTranslation:
+      "I don't have a translation to repeat";
 
     this.emit(':ask', `${phraseToRepeat} <break time="1.5s"/> ${reply}`);
   },
   'SlowDownIntent'() {
     const reply = generatePrompt(prompts);
-    const phraseToSlowDown = this.attributes['lastTranslation'] === undefined ?
-      "I don't have a translation to repeat and slow down" :
-      this.attributes['lastTranslation'];
+    const phraseToSlowDown = this.attributes.lastTranslation ?
+      this.attributes.lastTranslation:
+      "I don't have a translation to repeat and slow down";
 
     this.emit(':ask', `<prosody rate="x-slow" volume="loud"> ${phraseToSlowDown} </prosody> <break time="1.5s"/> ${reply}`);
   },
@@ -91,6 +90,6 @@ const handlers = {
     this.emit(':ask', "Sorry, I didn't get that. You can say, 'translate' and the phrase you would like to hear");
   },
   'SessionEndedRequest'() {
-    console.log('Session ended with reason: ' + this.event.request.reason);
+    console.log(`Session ended with reason: ${this.event.request.reason}`);
   }
 };
