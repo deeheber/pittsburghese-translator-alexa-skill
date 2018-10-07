@@ -10,12 +10,12 @@ exports.handler = function(event, context) {
   const alexa = Alexa.handler(event, context);
   // TODO add app id here
   alexa.registerHandlers(handlers);
+  alexa.dynamoDBTableName = 'hey-yinz';
   alexa.execute();
 };
 
 const handlers = {
   'LaunchRequest'() {
-    this.event.session.attributes.lastTranslation = undefined;
     this.emit('MainMenu');
   },
   'MainMenuIntent'() {
@@ -32,23 +32,23 @@ const handlers = {
     const translated = translator(dictionary, phraseToTranslate);
     const reply = generatePrompt(prompts);
 
-    this.event.session.attributes.lastTranslation = translated;
+    this.attributes['lastTranslation'] = translated;
 
     this.emit(':ask', `${translated} <break time="1.5s"/> ${reply}`);
   },
   'RepeatIntent'() {
     const reply = generatePrompt(prompts);
-    const phraseToRepeat = this.event.session.attributes.lastTranslation === undefined ?
+    const phraseToRepeat = this.attributes['lastTranslation'] === undefined ?
       "I don't have a translation to repeat" :
-      this.event.session.attributes.lastTranslation;
+      this.attributes['lastTranslation'];
 
     this.emit(':ask', `${phraseToRepeat} <break time="1.5s"/> ${reply}`);
   },
   'SlowDownIntent'() {
     const reply = generatePrompt(prompts);
-    const phraseToSlowDown = this.event.session.attributes.lastTranslation === undefined ?
+    const phraseToSlowDown = this.attributes['lastTranslation'] === undefined ?
       "I don't have a translation to repeat and slow down" :
-      this.event.session.attributes.lastTranslation;
+      this.attributes['lastTranslation'];
 
     this.emit(':ask', `<prosody rate="x-slow" volume="loud"> ${phraseToSlowDown} </prosody> <break time="1.5s"/> ${reply}`);
   },
@@ -68,14 +68,12 @@ const handlers = {
     this.emit('Bye');
   },
   'Bye'() {
-    this.event.session.attributes.lastTranslation = undefined;
     this.emit(':tell', 'Catch yinz next time, bye!');
   },
   'Unhandled'() {
     this.emit(':ask', "Sorry, I didn't get that. You can say, 'translate' and the phrase you would like to hear");
   },
   'SessionEndedRequest'() {
-    this.event.session.attributes.lastTranslation = undefined;
     console.log('Session ended with reason: ' + this.event.request.reason);
   }
 };
