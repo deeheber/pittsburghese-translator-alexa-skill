@@ -1,4 +1,5 @@
 const Alexa = require('alexa-sdk');
+const moment = require('moment');
 
 const translator = require('./util/translator');
 const dictionary = require('./data/dictionary');
@@ -22,7 +23,23 @@ const handlers = {
     this.emit('MainMenu');
   },
   'MainMenu'() {
-    this.emit(':ask', `Welcome to Hey Yinz! To translate a phrase, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`);
+    const now = moment().utc();
+    const lastTimestamp = this.attributes['timestamp'];
+    const prior = moment(lastTimestamp).utc();
+
+    // let greeting = `Welcome to Hey Yinz! To translate a phrase, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`;
+
+    let greeting = 'longer greeting';
+
+    if (lastTimestamp) {
+      if (now.diff(prior, 'minutes') < 1) {
+        greeting = 'shorter greeting';
+      }
+    }
+
+    this.attributes['timestamp'] = this.event.request.timestamp;
+
+    this.emit(':ask', greeting);
   },
   'TranslateIntent'() {
     this.emit('Translate');
