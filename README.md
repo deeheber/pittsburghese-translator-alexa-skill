@@ -12,7 +12,7 @@ This is a skill in which a user will say a word or phrase and Alexa will repeat 
 Once a phrase is repeated back, the user has the option to repeat the phrase, repeat/slow down the phrase, or translate another phrase.
 
 ## Developer Notes
-This skill was built using the ASK CLI and uses [AWS Lambda](https://aws.amazon.com/lambda/). More info on how to get started can be found [here](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html).
+This skill was built using the ASK CLI and uses [Lambda](https://aws.amazon.com/lambda/) and [DynamoDB](https://aws.amazon.com/dynamodb/). More info on how to get started can be found [here](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html).
 
 Contributions are welcome. We're specifically looking for ideas for Pittsburghese phrases to store for Alexa to repeat back. Check out our contribution guidelines [here](https://github.com/deeheber/pittsburghese-translator-alexa-skill/blob/master/CONTRIBUTING.md)
 
