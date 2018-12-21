@@ -10,7 +10,7 @@ exports.handler = function(event, context) {
   const alexa = Alexa.handler(event, context);
 
   alexa.registerHandlers(handlers);
-  alexa.dynamoDBTableName = 'hey-yinz';
+  alexa.dynamoDBTableName = 'hey-yinz-dev';
   alexa.execute();
 };
 

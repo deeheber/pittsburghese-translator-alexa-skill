@@ -8,7 +8,7 @@
           "apis": {
             "custom": {
               "endpoint": {
-                "uri": "ask-custom-pittsburghese_translator-v2"
+                "uri": "ask-custom-pittsburghese_translator-v3"
               }
             }
           }
@@ -16,7 +16,7 @@
       },
       "resources": {
         "manifest": {
-          "eTag": "66ac1a8abb750da7ad8537b8cefa7612"
+          "eTag": "cacd130dd793da8a225a50497be4ba4a"
         },
         "interactionModel": {
           "en-US": {
@@ -25,13 +25,16 @@
         },
         "lambda": [
           {
-            "arn": "arn:aws:lambda:us-east-1:640581278975:function:ask-custom-pittsburghese_translator-v2",
-            "functionName": "arn:aws:lambda:us-east-1:640581278975:function:ask-custom-pittsburghese_translator-v2",
-            "awsRegion": "us-east-1",
             "alexaUsage": [
               "custom/default"
             ],
-            "revisionId": "975b77a0-73df-4d98-aea3-8ff14a6960fe"
+            "arn": "arn:aws:lambda:us-east-1:640581278975:function:ask-custom-pittsburghese_translator-v3",
+            "awsRegion": "us-east-1",
+            "codeUri": "lambda/custom",
+            "functionName": "arn:aws:lambda:us-east-1:640581278975:function:ask-custom-pittsburghese_translator-v3",
+            "handler": "index.handler",
+            "revisionId": "379ce9f3-21e6-4a54-9f7b-3a5cf2645033",
+            "runtime": "nodejs8.10"
           }
         ]
       }
