@@ -5,13 +5,75 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    const speechText = 'Welcome to the Alexa Skills Kit, you can say hello!';
+    const speechText = 'Welcome to Hey Yinz...what can I do for you?';
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+      .withSimpleCard('Hey Yinz', speechText)
       .getResponse();
+  }
+};
+
+const HelpIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent';
+  },
+  handle(handlerInput) {
+    const speechText = 'Say translate and the phrase you would like to translate. For example you can try, "translate" I am going downtown. You can also ask me to repeat or slow down the prior translation. What can I do for you?';
+    const speechRepromptText = 'What can I do for you?';
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(speechRepromptText)
+      .withSimpleCard('Hey Yinz', speechText)
+      .getResponse();
+  }
+};
+
+const CancelStopAndNoIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.CancelIntent'
+        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent'
+        || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NoIntent'
+        );
+  },
+  handle(handlerInput) {
+    const speechText = 'Catch yinz next time, bye!';
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withSimpleCard('Hey Yinz', speechText)
+      .getResponse();
+  }
+};
+
+const YesIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.YesIntent';
+  },
+  handle(handlerInput) {
+    const speechText = 'What can I do for you?';
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(speechText)
+      .withSimpleCard('Hey Yinz', speechText)
+      .getResponse();
+  }
+};
+
+const SessionEndedRequestHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
+  },
+  handle(handlerInput) {
+    //TODO: add cleanup and console logs
+    // console.log(`Session ended with reason: ${this.event.request.reason}`); ???
+    return handlerInput.responseBuilder.getResponse();
   }
 };
 
@@ -23,15 +85,18 @@ const ErrorHandler = {
     console.log(`Error handled: ${error.message}`);
 
     return handlerInput.responseBuilder
-      .speak('Sorry, I can\'t understand the command. Please say again.')
-      .reprompt('Sorry, I can\'t understand the command. Please say again.')
+      .speak('Sorry, I can\'t understand that command. Please reopen the skill and try again.')
       .getResponse();
   },
 };
 
 exports.handler = Alexa.SkillBuilders.custom()
   .addRequestHandlers(
-    LaunchRequestHandler)
+    LaunchRequestHandler,
+    HelpIntentHandler,
+    CancelStopAndNoIntentHandler,
+    YesIntentHandler,
+    SessionEndedRequestHandler)
   .addErrorHandlers(ErrorHandler)
   .lambda();
 
@@ -102,29 +167,5 @@ exports.handler = Alexa.SkillBuilders.custom()
 //       "I don't have a translation to repeat and slow down";
 
 //     this.emit(':ask', `<prosody rate="x-slow" volume="loud"> ${phraseToSlowDown} </prosody> <break time="1.5s"/> ${reply}`);
-//   },
-//   'AMAZON.HelpIntent'() {
-//     this.emit(':ask', 'Say translate and the phrase you would like to translate. For example you can try, "translate" I am going downtown. You can also ask me to repeat or slow down the prior translation. What can I do for you?');
-//   },
-//   'AMAZON.NoIntent'() {
-//     this.emit('Bye');
-//   },
-//   'AMAZON.YesIntent'() {
-//     this.emit(':ask', 'What can I do for you?');
-//   },
-//   'AMAZON.StopIntent'() {
-//     this.emit('Bye');
-//   },
-//   'AMAZON.CancelIntent'() {
-//     this.emit('Bye');
-//   },
-//   'Bye'() {
-//     this.emit(':tell', 'Catch yinz next time, bye!');
-//   },
-//   'Unhandled'() {
-//     this.emit(':ask', "Sorry, I didn't get that. You can say, 'translate' and the phrase you would like to hear");
-//   },
-//   'SessionEndedRequest'() {
-//     console.log(`Session ended with reason: ${this.event.request.reason}`);
 //   }
 // };
