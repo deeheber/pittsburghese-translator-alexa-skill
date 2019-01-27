@@ -1,9 +1,11 @@
+const moment = require('moment');
 const Alexa = require('ask-sdk-core');
 const { DynamoDbPersistenceAdapter } = require('ask-sdk-dynamodb-persistence-adapter');
 const persistenceAdapter = new DynamoDbPersistenceAdapter({
   tableName: 'hey-yinz-v3'
 });
 
+const CARD_TITLE = 'Hey Yinz';
 const dictionary = require('./data/dictionary');
 const generatePrompt = require('./util/generatePrompt');
 const prompts = require('./data/prompts');
@@ -13,13 +15,29 @@ const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
-  handle(handlerInput) {
-    const speechText = 'Welcome to Hey Yinz...what can I do for you?';
+  async handle(handlerInput) {
+    const attributes = await handlerInput.attributesManager.getPersistentAttributes();
+    const { lastTimestamp } = attributes;
+    const now = moment().utc();
+    const then = moment(lastTimestamp).utc();
+
+    let speechText = `Welcome to Hey Yinz! To translate a phrase, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`;
+
+    // TODO: update if to fewer than 7 days this when ready to ship
+    // now.diff(then, 'days') < 7
+    if (lastTimestamp && now.diff(then, 'minutes') < 5) {
+      speechText = 'Welcome back to Hey Yinz! What would you like me to translate into Pittsburghese?';
+    }
+
+    // TODO figure out why this assignment doesn't work with the destructured var
+    attributes.lastTimestamp = now.toString();
+    handlerInput.attributesManager.setPersistentAttributes(attributes);
+    await handlerInput.attributesManager.savePersistentAttributes();
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hey Yinz', speechText)
+      .withSimpleCard(CARD_TITLE, speechText)
       .getResponse();
   }
 };
@@ -42,7 +60,7 @@ const TranslateHandler = {
     return handlerInput.responseBuilder
       .speak(translated)
       .reprompt(followUpPrompt)
-      .withSimpleCard('Hey Yinz', translated)
+      .withSimpleCard(CARD_TITLE, translated)
       .getResponse();
   }
 };
@@ -61,7 +79,7 @@ const RepeatHandler = {
     return handlerInput.responseBuilder
       .speak(phraseToRepeat)
       .reprompt(followUpPrompt)
-      .withSimpleCard('Hey Yinz', phraseToRepeat)
+      .withSimpleCard(CARD_TITLE, phraseToRepeat)
       .getResponse();
   }
 };
@@ -80,7 +98,7 @@ const SlowDownHandler = {
     return handlerInput.responseBuilder
       .speak(`<emphasis level="strong">${phraseToSlowDown}</emphasis>`)
       .reprompt(followUpPrompt)
-      .withSimpleCard('Hey Yinz', phraseToSlowDown)
+      .withSimpleCard(CARD_TITLE, phraseToSlowDown)
       .getResponse();
   }
 };
@@ -97,7 +115,7 @@ const HelpIntentHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechRepromptText)
-      .withSimpleCard('Hey Yinz', speechText)
+      .withSimpleCard(CARD_TITLE, speechText)
       .getResponse();
   }
 };
@@ -115,7 +133,7 @@ const CancelStopAndNoIntentHandler = {
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .withSimpleCard('Hey Yinz', speechText)
+      .withSimpleCard(CARD_TITLE, speechText)
       .getResponse();
   }
 };
@@ -131,7 +149,7 @@ const YesIntentHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hey Yinz', speechText)
+      .withSimpleCard(CARD_TITLE, speechText)
       .getResponse();
   }
 };
