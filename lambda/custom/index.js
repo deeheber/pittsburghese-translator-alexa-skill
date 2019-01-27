@@ -1,4 +1,8 @@
 const Alexa = require('ask-sdk-core');
+const { DynamoDbPersistenceAdapter } = require('ask-sdk-dynamodb-persistence-adapter');
+const persistenceAdapter = new DynamoDbPersistenceAdapter({
+  tableName: 'hey-yinz-dev'
+});
 
 const dictionary = require('./data/dictionary');
 const generatePrompt = require('./util/generatePrompt');
@@ -25,12 +29,15 @@ const TranslateHandler = {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'TranslateIntent';
   },
-  handle(handlerInput) {
+  async handle(handlerInput) {
+    const attributes = await handlerInput.attributesManager.getPersistentAttributes();
     const phraseToTranslate = handlerInput.requestEnvelope.request.intent.slots.Phrase.value;
     const translated = translator(dictionary, phraseToTranslate);
     const followUpPrompt = generatePrompt(prompts);
 
-    handlerInput.attributesManager.setSessionAttributes({ lastTranslation: translated });
+    attributes.lastTranslation = translated;
+    handlerInput.attributesManager.setPersistentAttributes(attributes);
+    await handlerInput.attributesManager.savePersistentAttributes();
 
     return handlerInput.responseBuilder
       .speak(translated)
@@ -45,13 +52,11 @@ const RepeatHandler = {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'RepeatIntent';
   },
-  handle(handlerInput) {
-    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    const { lastTranslation } = sessionAttributes;
+  async handle(handlerInput) {
+    const attributes = await handlerInput.attributesManager.getPersistentAttributes();
+    const { lastTranslation } = attributes;
     const phraseToRepeat = lastTranslation ? lastTranslation : 'I don\'t have a translation to repeat';
     const followUpPrompt = generatePrompt(prompts);
-
-    handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
 
     return handlerInput.responseBuilder
       .speak(phraseToRepeat)
@@ -66,13 +71,11 @@ const SlowDownHandler = {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
       && handlerInput.requestEnvelope.request.intent.name === 'SlowDownIntent'
   },
-  handle(handlerInput) {
-    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    const { lastTranslation } = sessionAttributes;
+  async handle(handlerInput) {
+    const attributes = await handlerInput.attributesManager.getPersistentAttributes();
+    const { lastTranslation } = attributes;
     const phraseToSlowDown = lastTranslation ? lastTranslation : 'I don\'t have a translation to slow down';
     const followUpPrompt = generatePrompt(prompts);
-
-    handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
 
     return handlerInput.responseBuilder
       .speak(`<emphasis level="strong">${phraseToSlowDown}</emphasis>`)
@@ -168,5 +171,6 @@ exports.handler = Alexa.SkillBuilders.custom()
     CancelStopAndNoIntentHandler,
     YesIntentHandler,
     SessionEndedRequestHandler)
+  .withPersistenceAdapter(persistenceAdapter)
   .addErrorHandlers(ErrorHandler)
   .lambda();
