@@ -30,10 +30,33 @@ const TranslateHandler = {
     const translated = translator(dictionary, phraseToTranslate);
     const followUpPrompt = generatePrompt(prompts);
 
+    handlerInput.attributesManager.setSessionAttributes({ lastTranslation: translated });
+
     return handlerInput.responseBuilder
       .speak(translated)
       .reprompt(followUpPrompt)
       .withSimpleCard('Hey Yinz', translated)
+      .getResponse();
+  }
+};
+
+const RepeatHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'RepeatIntent';
+  },
+  handle(handlerInput) {
+    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    const { lastTranslation } = sessionAttributes;
+    const phraseToRepeat = lastTranslation ? lastTranslation : 'I don\'t have a translation to repeat';
+    const followUpPrompt = generatePrompt(prompts);
+
+    handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+
+    return handlerInput.responseBuilder
+      .speak(phraseToRepeat)
+      .reprompt(followUpPrompt)
+      .withSimpleCard('Hey Yinz', phraseToRepeat)
       .getResponse();
   }
 };
@@ -105,7 +128,8 @@ const ErrorHandler = {
     return true;
   },
   handle(handlerInput, error) {
-    console.log(`Error handled: ${error.message}`);
+    console.log(`Error message: ${error.message}`);
+    console.log(`Error: ${JSON.stringify(error, null, '\t')}`);
 
     return handlerInput.responseBuilder
       .speak('Sorry, I can\'t understand that command. Please reopen the skill and try again.')
@@ -117,6 +141,7 @@ exports.handler = Alexa.SkillBuilders.custom()
   .addRequestHandlers(
     LaunchRequestHandler,
     TranslateHandler,
+    RepeatHandler,
     HelpIntentHandler,
     CancelStopAndNoIntentHandler,
     YesIntentHandler,
