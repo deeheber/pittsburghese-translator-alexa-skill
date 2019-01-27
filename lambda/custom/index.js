@@ -61,6 +61,27 @@ const RepeatHandler = {
   }
 };
 
+const SlowDownHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'SlowDownIntent'
+  },
+  handle(handlerInput) {
+    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    const { lastTranslation } = sessionAttributes;
+    const phraseToSlowDown = lastTranslation ? lastTranslation : 'I don\'t have a translation to slow down';
+    const followUpPrompt = generatePrompt(prompts);
+
+    handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+
+    return handlerInput.responseBuilder
+      .speak(`<emphasis level="strong">${phraseToSlowDown}</emphasis>`)
+      .reprompt(followUpPrompt)
+      .withSimpleCard('Hey Yinz', phraseToSlowDown)
+      .getResponse();
+  }
+};
+
 const HelpIntentHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest'
@@ -143,6 +164,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     TranslateHandler,
     RepeatHandler,
     HelpIntentHandler,
+    SlowDownHandler,
     CancelStopAndNoIntentHandler,
     YesIntentHandler,
     SessionEndedRequestHandler)
