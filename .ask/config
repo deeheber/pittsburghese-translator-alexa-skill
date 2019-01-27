@@ -33,7 +33,7 @@
             "codeUri": "lambda/custom",
             "functionName": "arn:aws:lambda:us-east-1:640581278975:function:ask-custom-pittsburghese_translator-v3",
             "handler": "index.handler",
-            "revisionId": "3b1a7793-ec94-4efd-8255-6e872db3cf5a",
+            "revisionId": "cacfbabb-5455-4bb9-91d6-30183aee4d20",
             "runtime": "nodejs8.10"
           }
         ]

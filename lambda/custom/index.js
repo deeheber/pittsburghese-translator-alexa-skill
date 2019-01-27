@@ -1,7 +1,7 @@
 const Alexa = require('ask-sdk-core');
 const { DynamoDbPersistenceAdapter } = require('ask-sdk-dynamodb-persistence-adapter');
 const persistenceAdapter = new DynamoDbPersistenceAdapter({
-  tableName: 'hey-yinz-dev'
+  tableName: 'hey-yinz-v3'
 });
 
 const dictionary = require('./data/dictionary');
