@@ -23,9 +23,7 @@ const LaunchRequestHandler = {
 
     let speechText = `Welcome to Hey Yinz! To translate a phrase into Pittsburghese, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`;
 
-    // TODO: update if to fewer than 7 days this when ready to ship
-    // now.diff(then, 'days') < 7
-    if (lastTimestamp && now.diff(then, 'minutes') < 5) {
+    if (lastTimestamp && now.diff(then, 'days') < 7) {
       speechText = 'Welcome back to Hey Yinz! What would you like to translate into Pittsburghese?';
     }
 
