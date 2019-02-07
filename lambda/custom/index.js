@@ -21,12 +21,12 @@ const LaunchRequestHandler = {
     const now = moment().utc();
     const then = moment(lastTimestamp).utc();
 
-    let speechText = `Welcome to Hey Yinz! To translate a phrase, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`;
+    let speechText = `Welcome to Hey Yinz! To translate a phrase into Pittsburghese, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`;
 
     // TODO: update if to fewer than 7 days this when ready to ship
     // now.diff(then, 'days') < 7
     if (lastTimestamp && now.diff(then, 'minutes') < 5) {
-      speechText = 'Welcome back to Hey Yinz! What would you like me to translate into Pittsburghese?';
+      speechText = 'Welcome back to Hey Yinz! What would you like to translate into Pittsburghese?';
     }
 
     // TODO figure out why this assignment doesn't work with the destructured var
@@ -36,7 +36,7 @@ const LaunchRequestHandler = {
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .reprompt(speechText)
+      .reprompt('What would you like to translate into Pittsburghese?')
       .withSimpleCard(CARD_TITLE, speechText)
       .getResponse();
   }
@@ -58,7 +58,7 @@ const TranslateHandler = {
     await handlerInput.attributesManager.savePersistentAttributes();
 
     return handlerInput.responseBuilder
-      .speak(translated)
+      .speak(`${translated} <break time="1.5s"/> ${followUpPrompt}`)
       .reprompt(followUpPrompt)
       .withSimpleCard(CARD_TITLE, translated)
       .getResponse();
@@ -77,7 +77,7 @@ const RepeatHandler = {
     const followUpPrompt = generatePrompt(prompts);
 
     return handlerInput.responseBuilder
-      .speak(phraseToRepeat)
+      .speak(`${phraseToRepeat} <break time="1.5s"/> ${followUpPrompt}`)
       .reprompt(followUpPrompt)
       .withSimpleCard(CARD_TITLE, phraseToRepeat)
       .getResponse();
@@ -96,7 +96,7 @@ const SlowDownHandler = {
     const followUpPrompt = generatePrompt(prompts);
 
     return handlerInput.responseBuilder
-      .speak(`<emphasis level="strong">${phraseToSlowDown}</emphasis>`)
+      .speak(`<prosody pitch="low"><emphasis level="strong">${phraseToSlowDown}</emphasis></prosody> <break time="1.5s"/> ${followUpPrompt}`)
       .reprompt(followUpPrompt)
       .withSimpleCard(CARD_TITLE, phraseToSlowDown)
       .getResponse();
@@ -129,7 +129,7 @@ const CancelStopAndNoIntentHandler = {
         );
   },
   handle(handlerInput) {
-    const speechText = 'Catch yinz next time, bye!';
+    const speechText = 'Okay, hope to catch yinz again soon!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -159,8 +159,8 @@ const SessionEndedRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'SessionEndedRequest';
   },
   handle(handlerInput) {
-    //TODO: add cleanup and console logs
-    // console.log(`Session ended with reason: ${this.event.request.reason}`); ???
+    console.log(`Session ended with reason: ${handlerInput.request.reason}`);
+
     return handlerInput.responseBuilder.getResponse();
   }
 };
@@ -171,10 +171,13 @@ const ErrorHandler = {
   },
   handle(handlerInput, error) {
     console.log(`Error message: ${error.message}`);
-    console.log(`Error: ${JSON.stringify(error, null, '\t')}`);
+
+    const speechText = 'I\’m sorry, Hey Yinz can\’t help with that yet. Hey Yinz can translate a phrase into Pittsburghese and can also repeat or slow down the prior translation. Which would you like to do?'
 
     return handlerInput.responseBuilder
-      .speak('Sorry, I can\'t understand that command. Please reopen the skill and try again.')
+      .speak(speechText)
+      .reprompt('Which would you like to do?')
+      .withSimpleCard(CARD_TITLE, speechText)
       .getResponse();
   },
 };
