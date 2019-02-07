@@ -35,7 +35,7 @@ const LaunchRequestHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt('What would you like to translate into Pittsburghese?')
-      .withSimpleCard(CARD_TITLE, speechText)
+      .withSimpleCard(CARD_TITLE, 'Welcome to Hey Yinz! What would you like to translate into Pittsburghese?')
       .getResponse();
   }
 };
