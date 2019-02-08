@@ -20,7 +20,7 @@
         },
         "interactionModel": {
           "en-US": {
-            "eTag": "18cb47d0bd8dad22e6a8a13e83eb9e9f"
+            "eTag": "d7044ea5f24d33833b09414c7be7b79b"
           }
         },
         "lambda": [
@@ -33,7 +33,7 @@
             "codeUri": "lambda/custom",
             "functionName": "arn:aws:lambda:us-east-1:640581278975:function:ask-custom-pittsburghese_translator-v3",
             "handler": "index.handler",
-            "revisionId": "379ce9f3-21e6-4a54-9f7b-3a5cf2645033",
+            "revisionId": "e0330647-ebda-4db9-ab6e-20f87bd39211",
             "runtime": "nodejs8.10"
           }
         ]

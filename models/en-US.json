@@ -59,15 +59,6 @@
           "samples": []
         },
         {
-          "name":"MainMenuIntent",
-          "samples":[
-            "menu",
-            "go to main menu",
-            "start over",
-            "go to the beginning"
-          ]
-        },
-        {
           "name": "TranslateIntent",
           "slots": [
             {
