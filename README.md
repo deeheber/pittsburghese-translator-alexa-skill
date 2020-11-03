@@ -1,5 +1,7 @@
 # Hey-Yinz!-A-Pittsburghese-Translator
 
+**Note: I am no longer actively updating this skill.** AWS has released newer tools to build Alexa skills which may be nicer than the one I used. Keeping this here for archival purposes since it was a fun project for me. It is still live in the Alexa store. Thinking there may be a reprise of this for Google assistant devices in the future.
+
 ![hey-yinz-sm108x108](https://user-images.githubusercontent.com/12616554/34074156-2cd923ca-e25e-11e7-8bec-23f2e9a089b6.png)
 
 - [Live](https://www.amazon.com/dp/B0787M1125/ref=sr_1_13?s=digital-skills&ie=UTF8&qid=1513400727&sr=1-13&keywords=pittsburgh) in the Alexa Skill Store
