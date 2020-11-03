@@ -2,7 +2,9 @@
 
 ![hey-yinz-sm108x108](https://user-images.githubusercontent.com/12616554/34074156-2cd923ca-e25e-11e7-8bec-23f2e9a089b6.png)
 
-Live in the Alexa Skill Store [here](https://www.amazon.com/dp/B0787M1125/ref=sr_1_13?s=digital-skills&ie=UTF8&qid=1513400727&sr=1-13&keywords=pittsburgh)
+- [Live](https://www.amazon.com/dp/B0787M1125/ref=sr_1_13?s=digital-skills&ie=UTF8&qid=1513400727&sr=1-13&keywords=pittsburgh) in the Alexa Skill Store
+- [Mention](https://newsinteractive.post-gazette.com/blog/alexa-do-you-speak-pittsburghese/) in the news
+- [Talk](https://www.youtube.com/watch?list=PLclEcT4yxER4dPvNgw8n-aQlcA1AtgrI2&v=77rk1uYzayM) at a local meetup
 
 ## Summary
 Are you planning a visit to Pittsburgh or Western Pennsylvania and want to talk like the locals? If you answered yes, then this is the Alexa skill is for you!
