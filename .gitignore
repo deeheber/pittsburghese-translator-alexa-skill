@@ -4,3 +4,4 @@ node_modules/
 debug.json
 event.json
 .stackery
+.aws-sam

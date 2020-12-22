@@ -2,7 +2,7 @@ const moment = require('moment');
 const Alexa = require('ask-sdk-core');
 const { DynamoDbPersistenceAdapter } = require('ask-sdk-dynamodb-persistence-adapter');
 const persistenceAdapter = new DynamoDbPersistenceAdapter({
-  tableName: 'hey-yinz-v3'
+  tableName: process.env.TABLE_NAME
 });
 
 const CARD_TITLE = 'Hey Yinz';
@@ -168,7 +168,7 @@ const ErrorHandler = {
     return true;
   },
   handle(handlerInput, error) {
-    console.log(`Error message: ${error.message}`);
+    console.error(JSON.stringify(error, null, 2));
 
     const speechText = 'I\’m sorry, Hey Yinz can\’t help with that yet. Hey Yinz can translate a phrase into Pittsburghese and can also repeat or slow down the prior translation. Which would you like to do?'
 
