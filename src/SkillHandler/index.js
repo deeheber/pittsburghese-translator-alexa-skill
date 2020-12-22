@@ -1,4 +1,4 @@
-const moment = require('moment');
+const dayjs = require('dayjs');
 const Alexa = require('ask-sdk-core');
 const { DynamoDbPersistenceAdapter } = require('ask-sdk-dynamodb-persistence-adapter');
 const persistenceAdapter = new DynamoDbPersistenceAdapter({
@@ -18,12 +18,12 @@ const LaunchRequestHandler = {
   async handle(handlerInput) {
     const attributes = await handlerInput.attributesManager.getPersistentAttributes();
     const { lastTimestamp } = attributes;
-    const now = moment().utc();
-    const then = moment(lastTimestamp).utc();
+    const now = dayjs();
+    const then = lastTimestamp ? dayjs(lastTimestamp) : null;
 
     let speechText = `Welcome to Hey Yinz! To translate a phrase into Pittsburghese, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`;
-
-    if (lastTimestamp && now.diff(then, 'days') < 7) {
+    // Have they launched the skill within the past week
+    if (then && now.isBefore(then.add(7, 'day'))) {
       speechText = 'Welcome back to Hey Yinz! What would you like to translate into Pittsburghese?';
     }
 
