@@ -1,8 +1,8 @@
-const moment = require('moment');
+const dayjs = require('dayjs');
 const Alexa = require('ask-sdk-core');
 const { DynamoDbPersistenceAdapter } = require('ask-sdk-dynamodb-persistence-adapter');
 const persistenceAdapter = new DynamoDbPersistenceAdapter({
-  tableName: 'hey-yinz-v3'
+  tableName: process.env.TABLE_NAME
 });
 
 const CARD_TITLE = 'Hey Yinz';
@@ -18,12 +18,12 @@ const LaunchRequestHandler = {
   async handle(handlerInput) {
     const attributes = await handlerInput.attributesManager.getPersistentAttributes();
     const { lastTimestamp } = attributes;
-    const now = moment().utc();
-    const then = moment(lastTimestamp).utc();
+    const now = dayjs();
+    const then = lastTimestamp ? dayjs(lastTimestamp) : null;
 
     let speechText = `Welcome to Hey Yinz! To translate a phrase into Pittsburghese, you can say "translate" and the phrase you would like to hear in Pittsburghese. <break time="0.5s"/> After I reply, you can say "repeat" and I will repeat the translation. <break time="0.25s"/> You can also say "slow down" if you want to hear the translation again slower.  <break time="0.25s"/> What would you like to translate?`;
-
-    if (lastTimestamp && now.diff(then, 'days') < 7) {
+    // Have they launched the skill within the past week
+    if (then && now.isBefore(then.add(7, 'day'))) {
       speechText = 'Welcome back to Hey Yinz! What would you like to translate into Pittsburghese?';
     }
 
@@ -168,7 +168,7 @@ const ErrorHandler = {
     return true;
   },
   handle(handlerInput, error) {
-    console.log(`Error message: ${error.message}`);
+    console.error(JSON.stringify(error, null, 2));
 
     const speechText = 'I\’m sorry, Hey Yinz can\’t help with that yet. Hey Yinz can translate a phrase into Pittsburghese and can also repeat or slow down the prior translation. Which would you like to do?'
 
