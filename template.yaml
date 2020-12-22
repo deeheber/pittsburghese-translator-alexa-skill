@@ -36,6 +36,8 @@ Resources:
       Events:
         AlexaSkillEvent:
           Type: AlexaSkill
+          Properties:
+            SkillId: !Ref EnvConfigheyyinzidAsString
 Parameters:
   StackTagName:
     Type: String
@@ -43,3 +45,9 @@ Parameters:
   EnvironmentTagName:
     Type: String
     Description: Environment Name (injected by Stackery at deployment time)
+  EnvConfigheyyinzidAsString:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /<EnvironmentName>/hey-yinz-id
+Metadata:
+  EnvConfigParameters:
+    EnvConfigheyyinzidAsString: hey-yinz-id
