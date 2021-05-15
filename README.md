@@ -19,6 +19,6 @@ This skill was built using [AWS SAM](https://docs.aws.amazon.com/serverless-appl
 Contributions are welcome. We're specifically looking for ideas for Pittsburghese phrases to store for Alexa to repeat back. Check out our contribution guidelines [here](https://github.com/deeheber/pittsburghese-translator-alexa-skill/blob/master/CONTRIBUTING.md)
 
 ## Disclaimer
-Not everyone in Western Pennsylvania actually talks like this, but sometimes playing into stereotypes can be fun.
+Not everyone who lives in or is originally from Western Pennsylvania actually talks like this.
 
 [](https://user-images.githubusercontent.com/12616554/34074156-2cd923ca-e25e-11e7-8bec-23f2e9a089b6.png)
