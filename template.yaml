@@ -10,14 +10,12 @@ Resources:
       KeySchema:
         - AttributeName: id
           KeyType: HASH
-      StreamSpecification:
-        StreamViewType: NEW_AND_OLD_IMAGES
   SkillHandler:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: !Sub ${AWS::StackName}-SkillHandler
       Description: !Sub
-        - Stack ${StackTagName} Environment ${EnvironmentTagName} Function ${ResourceName}
+        - Stack ${AWS::StackName} Function ${ResourceName}
         - ResourceName: SkillHandler
       CodeUri: src/SkillHandler
       Handler: index.handler
@@ -37,17 +35,8 @@ Resources:
         AlexaSkillEvent:
           Type: AlexaSkill
           Properties:
-            SkillId: !Ref EnvConfigheyyinzidAsString
+            SkillId: !Ref HeyYinzID
 Parameters:
-  StackTagName:
-    Type: String
-    Description: Stack Name (injected by Stackery at deployment time)
-  EnvironmentTagName:
-    Type: String
-    Description: Environment Name (injected by Stackery at deployment time)
-  EnvConfigheyyinzidAsString:
+  HeyYinzID:
     Type: AWS::SSM::Parameter::Value<String>
-    Default: /<EnvironmentName>/hey-yinz-id
-Metadata:
-  EnvConfigParameters:
-    EnvConfigheyyinzidAsString: hey-yinz-id
+    Default: /staging/hey-yinz-id

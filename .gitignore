@@ -5,3 +5,4 @@ debug.json
 event.json
 .stackery
 .aws-sam
+samconfig.toml
