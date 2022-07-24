@@ -1,8 +1,9 @@
 # Hey-Yinz!-A-Pittsburghese-Translator
 
+**Note: This repo has been archived and won't receive updates.**
+
 ![hey-yinz-sm108x108](https://user-images.githubusercontent.com/12616554/34074156-2cd923ca-e25e-11e7-8bec-23f2e9a089b6.png)
 
-- [Live](https://www.amazon.com/dp/B0787M1125/ref=sr_1_13?s=digital-skills&ie=UTF8&qid=1513400727&sr=1-13&keywords=pittsburgh) in the Alexa Skill Store
 - [Mention](https://newsinteractive.post-gazette.com/blog/alexa-do-you-speak-pittsburghese/) in the news
 - [Talk](https://www.youtube.com/watch?list=PLclEcT4yxER4dPvNgw8n-aQlcA1AtgrI2&v=77rk1uYzayM) at a local meetup
 
@@ -22,9 +23,6 @@ This skill was built using [AWS SAM](https://docs.aws.amazon.com/serverless-appl
 3. Run `sam build` and `sam deploy --guided` commands.
 4. You should now see a CloudFormation stack building with a DynamoDB table and a Lambda Function
 5. Head to the Alexa skill console to set up your intents, build your model, and to connect your Lambda ARN to the skill. There's also a pretty nice GUI in there to test your skill before releasing it to the live Alexa Skill Store.
-
-## Contributions
-Contributions are welcome. We're specifically looking for ideas for Pittsburghese phrases to store for Alexa to repeat back. Check out our contribution guidelines [here](https://github.com/deeheber/pittsburghese-translator-alexa-skill/blob/master/CONTRIBUTING.md)
 
 ## Disclaimer
 Not everyone who lives in or is originally from Western Pennsylvania actually talks like this.
